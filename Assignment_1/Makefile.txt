@@ -1,0 +1,38 @@
+
+ # File: Makefile
+ # File Created: Sunday, 14 Sep 2021 7:50 pm
+ # Author: Aaron Fredrick
+ # -----
+ # Last Modified: Sunday, 18 Sep 2021 7:50 pm
+ # Modified By: Jawagar Prabaharan 
+ # -----
+ # Purpose: A makefile to compile the c files
+##
+
+
+# Makefile Variables
+CC		 = gcc
+EXEC	 = escape
+CFLAGS   = -Wall -ansi -pedantic
+C        = main.c random.c terminal.c map.c 
+OBJ 	 = main.o random.o terminal.o map.o 
+
+# Add BORDERLESS to the CFLAGS and recompile the program
+ifdef BORDERLESS 
+CFLAGS += -D BORDERLESS=1
+endif
+
+# Add DEBUG to the CFLAGS and recompile the program
+ifdef DEBUG
+CFLAGS += -D DEBUG=1
+endif
+
+$(EXEC) : $(OBJ)
+	$(CC) $(OBJ) -o $(EXEC)
+	rm $(OBJ)
+
+$(OBJ) : $(C)
+	$(CC) $(CFLAGS) $(C) -c 
+
+clean:
+	rm $(EXEC) $(OBJ)
